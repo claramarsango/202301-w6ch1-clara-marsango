@@ -16,7 +16,6 @@ export const showNumberAsync = createAsyncThunk(
   "randomNumber/getRandomNumber",
   async () => {
     const response = await getRandomNumber();
-    console.log(response);
 
     return response;
   }

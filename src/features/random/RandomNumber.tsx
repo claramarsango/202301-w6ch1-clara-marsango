@@ -13,8 +13,9 @@ const RandomNumber = () => {
 
   return (
     <>
-      <p>{count}</p>
+      <p role="paragraph">{count}</p>
       <button
+        data-testid="async-button"
         onClick={() => {
           dispatch(showNumberAsync());
         }}

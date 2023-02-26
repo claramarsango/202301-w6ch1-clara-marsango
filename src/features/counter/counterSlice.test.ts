@@ -4,6 +4,7 @@ import counterReducer, {
   decrement,
   incrementByAmount,
   reset,
+  incrementAsync,
 } from "./counterSlice";
 
 describe("counter reducer", () => {
@@ -36,5 +37,27 @@ describe("counter reducer", () => {
   it("should handle reset", () => {
     const actual = counterReducer(initialState, reset());
     expect(actual.value).toEqual(0);
+  });
+
+  it("should hanldle initial state", () => {
+    expect(counterReducer(undefined, { type: "unknown" })).toEqual({
+      value: 0,
+      status: "idle",
+    });
+  });
+
+  it("should handle loading status", () => {
+    const loading = counterReducer(undefined, incrementAsync.pending);
+    expect(loading.status).toEqual("loading");
+  });
+
+  it("should handle failed status", () => {
+    const loading = counterReducer(undefined, incrementAsync.rejected);
+    expect(loading.status).toEqual("failed");
+  });
+
+  it("should handle idle status", () => {
+    const loading = counterReducer(undefined, incrementAsync.fulfilled);
+    expect(loading.status).toEqual("idle");
   });
 });
